@@ -32,7 +32,6 @@ _:aspectAstronaut a av:Aspect ;
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX dbc: <http://dbpedia.org/resource/Category:>
         PREFIX dbo: <http://dbpedia.org/ontology/>
-        PREFIX dbp: <http://dbpedia.org/property/>
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -40,14 +39,14 @@ _:aspectAstronaut a av:Aspect ;
         WHERE {
             ?astronaut a dbo:Astronaut
             OPTIONAL { ?astronaut dbo:mission ?mission }
-            OPTIONAL { ?astronaut dbo:timeInSpace ?timeInSpace }
+            OPTIONAL { ?astronaut dbo:Astronaut\\/timeInSpace ?timeInSpace }
             OPTIONAL { ?astronaut dbo:nationality ?country }
             OPTIONAL { ?astronaut dbo:birthDate ?birthDate }
             OPTIONAL { ?astronaut dbo:deathDate ?deathDate }
             OPTIONAL { ?astronaut dbo:birthPlace ?birthPlace }
             OPTIONAL { ?astronaut dbo:deathPlace ?deathPlace }
             OPTIONAL { ?astronaut ^dbo:crewMember ?crewmemberOf }
-            OPTIONAL { ?astronaut rdfs:label|foaf:name ?label }
+            OPTIONAL { ?astronaut foaf:name ?label }
             #OPTIONAL { ?astronaut ^foaf:primaryTopic|foaf:isPrimaryTopicOf ?wikipediaUrl . } # UNION is much faster
             OPTIONAL { { ?astronaut ^foaf:primaryTopic ?wikipediaUrl . } UNION { ?astronaut foaf:isPrimaryTopicOf ?wikipediaUrl . } }
         }
@@ -91,7 +90,6 @@ _:aspectSpacecraft a av:Aspect ;
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX dbc: <http://dbpedia.org/resource/Category:>
         PREFIX dbo: <http://dbpedia.org/ontology/>
-        PREFIX dbp: <http://dbpedia.org/property/>
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -115,7 +113,7 @@ _:aspectSpacecraft a av:Aspect ;
             OPTIONAL { ?spacecraft dbo:cosparId ?cosparId }
             OPTIONAL { ?spacecraft dbo:crewMember ?crewMember }
             OPTIONAL { ?spacecraft dbo:launchSite ?launchSite }
-            OPTIONAL { ?spacecraft rdfs:label ?label }
+            OPTIONAL { ?spacecraft foaf:name ?label }
             #OPTIONAL { ?spacecraft ^foaf:primaryTopic|foaf:isPrimaryTopicOf ?wikipediaUrl . } # UNION is much faster
             OPTIONAL { { ?spacecraft ^foaf:primaryTopic ?wikipediaUrl . } UNION { ?spacecraft foaf:isPrimaryTopicOf ?wikipediaUrl . } }
         }
@@ -337,6 +335,7 @@ _:astronautLiteralsDataComparison a av:Step ;
     p-plan:isPrecededBy _:astronautWikipediaUrlMapping ;
     av:hasParameter
         [av:key "aspect" ; av:value _:aspectAstronaut ] ,
+        [av:key "allowTimeSkip" ; av:value true ] ,
         [av:key "variables" ; av:value "timeInSpace", "birthDate", "deathDate" ] ;
     .
 
@@ -379,6 +378,7 @@ _:spacecraftLiteralsComparison a av:Step ;
     p-plan:isPrecededBy _:spacecraftWikipediaUrlMapping ;
     av:hasParameter
         [av:key "aspect" ; av:value _:aspectSpacecraft ] ,
+        [av:key "allowTimeSkip" ; av:value true ] ,
         [av:key "variables" ; av:value "launchDate", "landingDate", "deathDate", "satelliteCatalogueNumber", "cosparId" ] ;
     .
 
