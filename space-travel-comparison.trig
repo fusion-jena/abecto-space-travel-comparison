@@ -148,64 +148,81 @@ _:aspectSpacecraft a av:Aspect ;
     """^^av:SparqlQuery ;
     .
 
-#_:aspectSpaceMission a av:Aspect ;
-#    av:keyVariableName "astronaut" ;
-#    .
-#[]  a av:AspectPattern ;
-#    av:ofAspect _:aspectSpaceMission ;
-#    av:associatedDataset <https://dbpedia.org/> ;
-#    av:definingQuery """
-#        PREFIX dct: <http://purl.org/dc/terms/>
-#        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-#        PREFIX dbc: <http://dbpedia.org/resource/Category:>
-#        PREFIX dbo: <http://dbpedia.org/ontology/>
-#        PREFIX dbp: <http://dbpedia.org/property/>
-#        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-#        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-#        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-#        SELECT ?astronaut ?mission ?timeInSpace ?country ?birthDate ?deathDate ?birthPlace ?deathPlace ?crewmemberOf ?label ?wikipediaUrl
-#        WHERE {
-#            ?astronaut a dbo:SpaceMission
-#            OPTIONAL { ?astronaut dbo:mission ?mission }
-#            OPTIONAL { ?astronaut dbo:timeInSpace ?timeInSpace }
-#            OPTIONAL { ?astronaut dbo:nationality ?country }
-#            OPTIONAL { ?astronaut dbo:birthDate ?birthDate }
-#            OPTIONAL { ?astronaut dbo:deathDate ?deathDate }
-#            OPTIONAL { ?astronaut dbo:birthPlace ?birthPlace }
-#            OPTIONAL { ?astronaut dbo:deathPlace ?deathPlace }
-#            OPTIONAL { ?astronaut ^dbo:crewMember ?crewmemberOf }
-#            OPTIONAL { ?astronaut rdfs:label|foaf:name ?label }
-#            #OPTIONAL { ?astronaut ^foaf:primaryTopic|foaf:isPrimaryTopicOf ?wikipediaUrl . } # UNION is much faster
-#            OPTIONAL { { ?astronaut ^foaf:primaryTopic ?wikipediaUrl . } UNION { ?astronaut foaf:isPrimaryTopicOf ?wikipediaUrl . } }
-#        }
-#    """^^av:SparqlQuery ;
-#    .
-#[]  a av:AspectPattern ;
-#    av:ofAspect _:aspectSpaceMission ;
-#    av:associatedDataset <http://www.wikidata.org/> ;
-#    av:definingQuery """
-#        PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-#        PREFIX wd: <http://www.wikidata.org/entity/>
-#        PREFIX schema: <http://schema.org/>
-#        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-#        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-#        SELECT ?astronaut ?mission ?timeInSpace ?country ?birthDate ?deathDate ?birthPlace ?deathPlace ?crewmemberOf ?label ?wikipediaUrl
-#        WHERE {
-#            ?astronaut wdt:P106 wd:Q11631 .
-#            OPTIONAL { ?astronaut wdt:P450 ?mission }
-#            OPTIONAL { ?astronaut wdt:P2873 ?timeInSpace }
-#            OPTIONAL { ?astronaut wdt:P27 ?country }
-#            OPTIONAL { ?astronaut wdt:P569 ?birthDate }
-#            OPTIONAL { ?astronaut wdt:P570 ?deathDate }
-#            OPTIONAL { ?astronaut wdt:P19 ?birthPlace }
-#            OPTIONAL { ?astronaut wdt:P20 ?deathPlace }
-#            OPTIONAL { ?astronaut wdt:P5096 ?crewmemberOf }
-#            #OPTIONAL { ?astronaut rdfs:label|skos:altLabel ?label } # UNION is much faster
-#            OPTIONAL { { ?astronaut rdfs:label ?label } UNION { ?astronaut skos:altLabel ?label } }
-#            OPTIONAL { ?astronaut ^schema:about ?wikipediaUrl }
-#        }
-#    """^^av:SparqlQuery ;
-#    .
+_:aspectSpaceMission a av:Aspect ;
+    av:keyVariableName "spaceMission" ;
+    .
+[]  a av:AspectPattern ;
+    av:ofAspect _:aspectSpaceMission ;
+    av:associatedDataset <https://dbpedia.org/> ;
+    av:definingQuery """
+        PREFIX dct: <http://purl.org/dc/terms/>
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        PREFIX dbc: <http://dbpedia.org/resource/Category:>
+        PREFIX dbo: <http://dbpedia.org/ontology/>
+        PREFIX dbp: <http://dbpedia.org/property/>
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        SELECT ?astronaut ?mission ?timeInSpace ?country ?birthDate ?deathDate ?birthPlace ?deathPlace ?crewmemberOf ?label ?wikipediaUrl
+        WHERE {
+            ?spaceMission a dbo:SpaceMission .
+            OPTIONAL { ?spaceMission dbo:crewMember ?member }
+            OPTIONAL { ?spaceMission dbo:launchDate ?launchDate }
+            OPTIONAL { ?spaceMission dbo:launchSite ?launchSite }
+            OPTIONAL { ?spaceMission dbo:landingVehicle ?launchVehicle }
+            OPTIONAL { ?spaceMission dbo:spacecraft ?vehicle }
+            OPTIONAL { ?spaceMission dbo:landingSite ?landingSite }
+            OPTIONAL { ?spaceMission dbo:missionDuration ?duration }
+            OPTIONAL { ?spaceMission dbo:landingDate ?landingDate }
+            OPTIONAL { ?spaceMission dbo:orbitalInclination ?inclination }
+            OPTIONAL { ?spaceMission dbo:numberOfOrbits ?numberOfOrbits }
+            OPTIONAL { ?spaceMission dbo:nextMission ?nextMission }
+            OPTIONAL { ?spaceMission dbo:previousMission ?previousMission }
+            OPTIONAL { ?spaceMission rdfs:label|foaf:name ?label }
+            #OPTIONAL { ?spaceMission ^foaf:primaryTopic|foaf:isPrimaryTopicOf ?wikipediaUrl . } # UNION is much faster
+            OPTIONAL { { ?spaceMission ^foaf:primaryTopic ?wikipediaUrl . } UNION { ?spaceMission foaf:isPrimaryTopicOf ?wikipediaUrl . } }
+        }
+    """^^av:SparqlQuery ;
+    .
+[]  a av:AspectPattern ;
+    av:ofAspect _:aspectSpaceMission ;
+    av:associatedDataset <http://www.wikidata.org/> ;
+    av:definingQuery """
+        PREFIX p: <http://www.wikidata.org/prop/>
+        PREFIX ps: <http://www.wikidata.org/prop/statement/>
+        PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX schema: <http://schema.org/>
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        PREFIX wd: <http://www.wikidata.org/entity/>
+        PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+        SELECT *
+        WHERE {
+            ?spaceMission wdt:P31/wdt:P279* wd:Q2133344 .
+            OPTIONAL { ?spaceMission wdt:P1029 ?member }
+            OPTIONAL { { ?spaceMission wdt:P619 ?launchDate } UNION { ?spaceMission p:P793 [ ps:P793 wd:Q797476 ; pq:P585 ?launchDate ] } }
+            OPTIONAL { { ?spaceMission wdt:P1427 ?launchSite } UNION { ?spaceMission p:P793 [ ps:P793 wd:Q797476 ; pq:P276 ?launchSite ] } }
+            OPTIONAL { ?spaceMission wdt:P2067 ?mass }
+            OPTIONAL { ?spaceMission wdt:P375 ?launchVehicle }
+            OPTIONAL { ?spaceMission wdt:P1876 ?vehicle }
+            OPTIONAL { ?spaceMission wdt:P1158 ?landingSite }
+            OPTIONAL { ?spaceMission wdt:P2047 ?duration }
+            OPTIONAL { ?spaceMission wdt:P522 ?orbitType }
+            OPTIONAL { ?spaceMission wdt:P620 ?landingDate }
+            OPTIONAL { ?spaceMission wdt:P2045 ?inclination }
+            OPTIONAL { ?spaceMission wdt:P2243 ?apoapsis }
+            OPTIONAL { ?spaceMission wdt:P2244 ?periapsis }
+            OPTIONAL { ?spaceMission wdt:P4519 ?payloadMass }
+            #OPTIONAL { ?spaceMission wdt:P176 ?manufacturer }
+            OPTIONAL { ?spaceMission wdt:P1418 ?numberOfOrbits }
+            OPTIONAL { ?spaceMission wdt:P156 ?nextMission }
+            OPTIONAL { ?spaceMission wdt:P155 ?previousMission }
+            #OPTIONAL { ?spaceMission rdfs:label|skos:altLabel ?label } # UNION is much faster
+            OPTIONAL { { ?spaceMission rdfs:label ?label } UNION { ?spaceMission skos:altLabel ?label } }
+            OPTIONAL { ?spaceMission ^schema:about ?wikipediaUrl }
+        }
+    """^^av:SparqlQuery ;
+    .
 
 _:dbpediaSource a av:Step ;
     rdfs:label "Load DBpedia"@en;
@@ -260,7 +277,8 @@ _:wikidataSource a av:Step ;
                     FILTER NOT EXISTS {?item wdt:P31/wdt:P279* wd:Q14897293} # not fictional
                 }
                 UNION
-                { ?item wdt:P31/wdt:P279* wd:Q5916 . } # spaceflight
+                { ?item wdt:P31/wdt:P279* wd:Q5916. } # spaceFlight
+                #{ ?item wdt:P31/wdt:P279* wd:Q2133344 . } # spaceMission
                 UNION
                 {?item wdt:P31/wdt:P279* wd:Q40218 . } # spacecraft
             }
@@ -273,15 +291,15 @@ _:wikidataSource a av:Step ;
             #p:P176, ps:P176,
             #p:P247, ps:P247,
             #p:P375, ps:P375,
-            #p:P377, ps:P377,
+            p:P377, ps:P377,
             #p:P450, ps:P450,
             #p:P569, ps:P569,
             #p:P570, ps:P570,
-            #p:P619, ps:P619,
+            p:P619, ps:P619,
             #p:P793, ps:P793, pq:P585, pq:P276,
             #p:P1427, ps:P1427,
             #p:P2047, ps:P2047,
-            #p:P2873, ps:P2873,
+            p:P2873, ps:P2873,
             #p:P5096, ps:P5096,
             wdt:P279
         ] ,
@@ -329,7 +347,7 @@ _:astronautCompleteness a av:Step;
     .
 
 _:astronautLiteralsDataComparison a av:Step ;
-    rdfs:label "Value Comparison"@en;
+    rdfs:label "Compare Astronaut Literal Values"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:LiteralValueComparisonProcessor ;
     p-plan:isPrecededBy _:astronautWikipediaUrlMapping ;
@@ -340,7 +358,7 @@ _:astronautLiteralsDataComparison a av:Step ;
     .
 
 _:astronautLanguageLiteralsComparison a av:Step ;
-    rdfs:label "English Literals Comparison"@en;
+    rdfs:label "Compare Astronaut English Literal Values"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:LiteralValueComparisonProcessor ;
     p-plan:isPrecededBy _:astronautWikipediaUrlMapping ;
@@ -372,18 +390,18 @@ _:spacecraftCompleteness a av:Step;
     .
 
 _:spacecraftLiteralsComparison a av:Step ;
-    rdfs:label "Value Comparison"@en;
+    rdfs:label "Compare Spacecraft Literal Values"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:LiteralValueComparisonProcessor ;
     p-plan:isPrecededBy _:spacecraftWikipediaUrlMapping ;
     av:hasParameter
         [av:key "aspect" ; av:value _:aspectSpacecraft ] ,
         [av:key "allowTimeSkip" ; av:value true ] ,
-        [av:key "variables" ; av:value "launchDate", "landingDate", "deathDate", "satelliteCatalogueNumber", "cosparId" ] ;
+        [av:key "variables" ; av:value "launchDate", "landingDate", "satelliteCatalogueNumber", "cosparId" ] ;
     .
 
 _:spacecraftLanguageLiteralsComparison a av:Step ;
-    rdfs:label "English Literals Comparison"@en;
+    rdfs:label "Compare Spacecraft English Literal Values"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:LiteralValueComparisonProcessor ;
     p-plan:isPrecededBy _:spacecraftWikipediaUrlMapping ;
@@ -391,4 +409,57 @@ _:spacecraftLanguageLiteralsComparison a av:Step ;
         [av:key "aspect" ; av:value _:aspectSpacecraft ] ,
         [av:key "variables" ; av:value "label" ] ,
         [av:key "languageFilterPatterns" ; av:value "en"] ;
+    .
+
+# SpaceMissions
+
+_:spaceMissionWikipediaUrlMapping a av:Step ;
+    rdfs:label "Mapping SpaceMissions by Wikipedia URL"@en;
+    p-plan:isStepOfPlan _:plan ;
+    av:processorClass abecto:EquivalentValueMappingProcessor ;
+    p-plan:isPrecededBy _:dbpediaSource, _:wikidataWikipediaUrlScheme ;
+    av:hasParameter
+        [av:key "aspect" ; av:value _:aspectSpaceMission ] ,
+        [av:key "variables" ; av:value "wikipediaUrl" ] ;
+    .
+
+_:spaceMissionCompleteness a av:Step;
+    rdfs:label "Assess SpaceMission Completeness"@en;
+    p-plan:isStepOfPlan _:plan ;
+    av:processorClass abecto:CompletenessProcessor ;
+    p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping ;
+    av:hasParameter
+        [av:key "aspects" ; av:value _:aspectSpaceMission ] ;
+    .
+
+_:spaceMissionLiteralsComparison a av:Step ;
+    rdfs:label "Compare SpaceMission Literal Values"@en;
+    p-plan:isStepOfPlan _:plan ;
+    av:processorClass abecto:LiteralValueComparisonProcessor ;
+    p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping ;
+    av:hasParameter
+        [av:key "aspect" ; av:value _:aspectSpaceMission ] ,
+        [av:key "allowTimeSkip" ; av:value true ] ,
+        [av:key "variables" ; av:value "launchDate", "landingDate", "mass", "duration", "inclination", "apoapsis", "periapsis", "payloadMass", "numberOfOrbits" ] ;
+    .
+
+_:spaceMissionLanguageLiteralsComparison a av:Step ;
+    rdfs:label "Compare SpaceMission English Literal Values"@en;
+    p-plan:isStepOfPlan _:plan ;
+    av:processorClass abecto:LiteralValueComparisonProcessor ;
+    p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping ;
+    av:hasParameter
+        [av:key "aspect" ; av:value _:aspectSpaceMission ] ,
+        [av:key "variables" ; av:value "label" ] ,
+        [av:key "languageFilterPatterns" ; av:value "en"] ;
+    .
+
+_:spaceMissionResourcesComparison a av:Step ;
+    rdfs:label "Compare SpaceMission Resource Values"@en;
+    p-plan:isStepOfPlan _:plan ;
+    av:processorClass abecto:ResourceValueComparisonProcessor ;
+    p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping ;
+    av:hasParameter
+        [av:key "aspect" ; av:value _:aspectSpaceMission ] ,
+        [av:key "variables" ; av:value "launchSite", "member", "launchVehicle", "vehicle", "landingSite", "orbitType", "nextMission", "previousMission" ] ;
     .
