@@ -14,6 +14,7 @@
 @prefix ps: <http://www.wikidata.org/prop/statement/> .
 @prefix pq: <http://www.wikidata.org/prop/qualifier/> .
 #@prefix psv: <http://www.wikidata.org/prop/statement/value/> .
+@prefix vaem: <http://www.linkedmodel.org/schema/vaem#> .
 @prefix wdt: <http://www.wikidata.org/prop/direct/> .
 @prefix wikibase: <http://wikiba.se/ontology#> .
 
@@ -35,6 +36,7 @@ _:aspectAstronaut a av:Aspect ;
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
         SELECT ?astronaut ?mission ?timeInSpace ?country ?birthDate ?deathDate ?birthPlace ?deathPlace ?crewmemberOf ?label ?wikipediaUrl
         WHERE {
             ?astronaut a dbo:Astronaut
@@ -61,6 +63,8 @@ _:aspectAstronaut a av:Aspect ;
         PREFIX schema: <http://schema.org/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
         SELECT ?astronaut ?mission ?timeInSpace ?country ?birthDate ?deathDate ?birthPlace ?deathPlace ?crewmemberOf ?label ?wikipediaUrl
         WHERE {
             ?astronaut wdt:P106 wd:Q11631 .
@@ -93,8 +97,9 @@ _:aspectSpacecraft a av:Aspect ;
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        SELECT *
-    WHERE {
+
+        SELECT  ?spacecraft ?missionDuration ?launchDate ?landingDate ?launchVehicle ?manufacturer ?satelliteCatalogueNumber ?cosparId ?crewMember ?launchSite ?label ?wikipediaUrl
+        WHERE {
             { ?spacecraft a dbo:Rocket }
             UNION
             { ?spacecraft a dbo:SpaceShuttle }
@@ -131,15 +136,18 @@ _:aspectSpacecraft a av:Aspect ;
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX wd: <http://www.wikidata.org/entity/>
         PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-        SELECT *
+
+        SELECT ?spacecraft ?missionDuration ?launchDate ?launchVehicle ?manufacturer ?satelliteCatalogueNumber ?cosparId ?launchSite ?label ?wikipediaUrl
         WHERE {
             ?spacecraft wdt:P31/wdt:P279* wd:Q40218 .
             OPTIONAL { ?spacecraft wdt:P2047 ?missionDuration }
             OPTIONAL { { ?spacecraft wdt:P619 ?launchDate } UNION { ?spacecraft p:P793 [ ps:P793 wd:Q797476 ; pq:P585 ?launchDate ] } }
+            # ?landingDate
             OPTIONAL { ?spacecraft wdt:P375 ?launchVehicle }
             OPTIONAL { ?spacecraft wdt:P176 ?manufacturer }
             OPTIONAL { ?spacecraft wdt:P377 ?satelliteCatalogueNumber }
             OPTIONAL { ?spacecraft wdt:P247 ?cosparId }
+            # ?crewMember
             OPTIONAL { { ?spacecraft wdt:P1427 ?launchSite } UNION { ?spacecraft p:P793 [ ps:P793 wd:Q797476 ; pq:P276 ?launchSite ] } }
             #OPTIONAL { ?spacecraft rdfs:label|skos:altLabel ?label } # UNION is much faster
             OPTIONAL { { ?spacecraft rdfs:label ?label } UNION { ?spacecraft skos:altLabel ?label } }
@@ -163,6 +171,7 @@ _:aspectSpaceMission a av:Aspect ;
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
         SELECT ?astronaut ?mission ?timeInSpace ?country ?birthDate ?deathDate ?birthPlace ?deathPlace ?crewmemberOf ?label ?wikipediaUrl
         WHERE {
             ?spaceMission a dbo:SpaceMission .
@@ -196,6 +205,7 @@ _:aspectSpaceMission a av:Aspect ;
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX wd: <http://www.wikidata.org/entity/>
         PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
         SELECT *
         WHERE {
             ?spaceMission wdt:P31/wdt:P279* wd:Q2133344 .
@@ -231,6 +241,11 @@ _:dbpediaSource a av:Step ;
     av:associatedDataset <https://dbpedia.org/> ;
     av:hasParameter
         [av:key "service" ; av:value <https://dbpedia.org/sparql> ] ,
+        [av:key "chunkSize" ;
+         av:value 25 ;
+         vaem:rationale
+            <http://docs.openlinksw.com/virtuoso/anytimequeries/>,
+            <https://github.com/openlink/virtuoso-opensource/issues/112> ] ,
         [av:key "query" ; av:value """
             PREFIX dct: <http://purl.org/dc/terms/>
             PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -289,12 +304,12 @@ _:wikidataSource a av:Step ;
             #p:P20, ps:P20,
             #p:P27, ps:P27,
             #p:P176, ps:P176,
-            #p:P247, ps:P247,
+            p:P247, ps:P247,
             #p:P375, ps:P375,
             p:P377, ps:P377,
             #p:P450, ps:P450,
-            #p:P569, ps:P569,
-            #p:P570, ps:P570,
+            p:P569, ps:P569,
+            p:P570, ps:P570,
             p:P619, ps:P619,
             #p:P793, ps:P793, pq:P585, pq:P276,
             #p:P1427, ps:P1427,
