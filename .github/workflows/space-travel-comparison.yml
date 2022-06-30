@@ -1,0 +1,19 @@
+name: Space Travel Comparison
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    container: ghcr.io/fusion-jena/abecto:latest
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v2
+      - name: Run ABECTO Space Travel Comparison
+        run: abecto --trig space-travel-comparison-result.trig space-travel-comparison.trig
+      - name: Generate Wikidata Mismatch Finder report
+        run: abecto --loadOnly --export wdMismatchFinder=space-travel-comparison-wdMismatchFinder.csv space-travel-comparison-result.trig
+      - name: Archive Wikidata Mismatch Finder report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Wikidata Mismatch Finder report
+          path: space-travel-comparison-wdMismatchFinder.csv
