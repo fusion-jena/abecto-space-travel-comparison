@@ -36,12 +36,16 @@ _:aspectAstronaut a av:Aspect ;
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
         SELECT ?astronaut ?mission ?timeInSpace ?country ?birthDate ?deathDate ?birthPlace ?deathPlace ?crewmemberOf ?label ?wikipediaUrl
         WHERE {
             ?astronaut a dbo:Astronaut
             OPTIONAL { ?astronaut dbo:mission ?mission }
-            OPTIONAL { ?astronaut dbo:Astronaut\\/timeInSpace ?timeInSpace }
+            OPTIONAL {
+                ?astronaut dbo:Astronaut\\/timeInSpace ?timeInSpaceX .
+                BIND(xsd:decimal(STR(?timeInSpaceX)) AS ?timeInSpace)
+            }
             OPTIONAL { ?astronaut dbo:nationality ?country }
             OPTIONAL { ?astronaut dbo:birthDate ?birthDate }
             OPTIONAL { ?astronaut dbo:deathDate ?deathDate }
@@ -63,7 +67,6 @@ _:aspectAstronaut a av:Aspect ;
         PREFIX schema: <http://schema.org/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
         SELECT ?astronaut ?mission ?timeInSpace ?country ?birthDate ?deathDate ?birthPlace ?deathPlace ?crewmemberOf ?label ?wikipediaUrl
         WHERE {
@@ -97,6 +100,7 @@ _:aspectSpacecraft a av:Aspect ;
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
         SELECT  ?spacecraft ?missionDuration ?launchDate ?landingDate ?launchVehicle ?manufacturer ?satelliteCatalogueNumber ?cosparId ?crewMember ?launchSite ?label ?wikipediaUrl
         WHERE {
@@ -114,7 +118,10 @@ _:aspectSpacecraft a av:Aspect ;
             OPTIONAL { ?spacecraft dbo:landingDate ?landingDate }
             OPTIONAL { ?spacecraft dbo:launchVehicle ?launchVehicle }
             OPTIONAL { ?spacecraft dbo:manufacturer ?manufacturer }
-            OPTIONAL { ?spacecraft dbo:satcat ?satelliteCatalogueNumber }
+            OPTIONAL {
+                ?spacecraft dbo:satcat ?satelliteCatalogueNumberX .
+                BIND(xsd:integer(?satelliteCatalogueNumberX) AS ?satelliteCatalogueNumber)
+            }
             OPTIONAL { ?spacecraft dbo:cosparId ?cosparId }
             OPTIONAL { ?spacecraft dbo:crewMember ?crewMember }
             OPTIONAL { ?spacecraft dbo:launchSite ?launchSite }
@@ -136,6 +143,7 @@ _:aspectSpacecraft a av:Aspect ;
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX wd: <http://www.wikidata.org/entity/>
         PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
         SELECT ?spacecraft ?missionDuration ?launchDate ?launchVehicle ?manufacturer ?satelliteCatalogueNumber ?cosparId ?launchSite ?label ?wikipediaUrl
         WHERE {
@@ -145,7 +153,10 @@ _:aspectSpacecraft a av:Aspect ;
             # ?landingDate
             OPTIONAL { ?spacecraft wdt:P375 ?launchVehicle }
             OPTIONAL { ?spacecraft wdt:P176 ?manufacturer }
-            OPTIONAL { ?spacecraft wdt:P377 ?satelliteCatalogueNumber }
+            OPTIONAL {
+                ?spacecraft wdt:P377 ?satelliteCatalogueNumberX .
+                BIND(xsd:integer(?satelliteCatalogueNumberX) AS ?satelliteCatalogueNumber)
+            }
             OPTIONAL { ?spacecraft wdt:P247 ?cosparId }
             # ?crewMember
             OPTIONAL { { ?spacecraft wdt:P1427 ?launchSite } UNION { ?spacecraft p:P793 [ ps:P793 wd:Q797476 ; pq:P276 ?launchSite ] } }
