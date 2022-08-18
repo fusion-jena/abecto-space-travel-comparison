@@ -1,5 +1,9 @@
 name: Space Travel Comparison
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      token:
+        description: 'Wikidata Mismatch Finder Access Token.'
 
 jobs:
   compare:
@@ -12,8 +16,20 @@ jobs:
         run: abecto --trig space-travel-comparison-result.trig space-travel-comparison.trig
       - name: Generate Wikidata Mismatch Finder report
         run: abecto --loadOnly --export wdMismatchFinder=space-travel-comparison-wdMismatchFinder.csv space-travel-comparison-result.trig
+      - name: Upload Wikidata Mismatch Finder report
+        if: ${{ github.event.inputs.token != null }}
+        run: |
+          apt update && apt install -y curl
+          curl -X POST "https://mismatch-finder.toolforge.org/api/imports" \
+            -H "Accept: application/json" \
+            -H "Authorization: Bearer ${{ github.event.inputs.token }}" \
+            -F "mismatch_file=space-travel-comparison-wdMismatchFinder.csv" \
+            -F "description=Mismatches found by a comparison of space travel data from Wikidata and DBpedia using ABECTO. See: https://github.com/jmkeil/abecto-space-travel-comparison" \
+            -F "external_source=DBpedia" \
+            -F "external_source_url=http://dbpedia.org/"
       - name: Archive Wikidata Mismatch Finder report
         uses: actions/upload-artifact@v2
         with:
           name: Wikidata Mismatch Finder report
           path: space-travel-comparison-wdMismatchFinder.csv
+
