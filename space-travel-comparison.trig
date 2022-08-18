@@ -56,7 +56,7 @@ _:aspectAstronaut a av:Aspect ;
             #OPTIONAL { ?astronaut ^foaf:primaryTopic|foaf:isPrimaryTopicOf ?wikipediaUrl . } # UNION is much faster
             OPTIONAL { { ?astronaut ^foaf:primaryTopic ?wikipediaUrl . } UNION { ?astronaut foaf:isPrimaryTopicOf ?wikipediaUrl . } }
         }
-    """^^av:SparqlQuery ;
+    """ ;
     .
 []  a av:AspectPattern ;
     av:ofAspect _:aspectAstronaut ;
@@ -83,7 +83,7 @@ _:aspectAstronaut a av:Aspect ;
             OPTIONAL { { ?astronaut rdfs:label ?label } UNION { ?astronaut skos:altLabel ?label } }
             OPTIONAL { ?astronaut ^schema:about ?wikipediaUrl }
         }
-    """^^av:SparqlQuery ;
+    """ ;
     .
 
 _:aspectSpacecraft a av:Aspect ;
@@ -129,7 +129,7 @@ _:aspectSpacecraft a av:Aspect ;
             #OPTIONAL { ?spacecraft ^foaf:primaryTopic|foaf:isPrimaryTopicOf ?wikipediaUrl . } # UNION is much faster
             OPTIONAL { { ?spacecraft ^foaf:primaryTopic ?wikipediaUrl . } UNION { ?spacecraft foaf:isPrimaryTopicOf ?wikipediaUrl . } }
         }
-    """^^av:SparqlQuery ;
+    """ ;
     .
 []  a av:AspectPattern ;
     av:ofAspect _:aspectSpacecraft ;
@@ -164,7 +164,7 @@ _:aspectSpacecraft a av:Aspect ;
             OPTIONAL { { ?spacecraft rdfs:label ?label } UNION { ?spacecraft skos:altLabel ?label } }
             OPTIONAL { ?spacecraft ^schema:about ?wikipediaUrl }
         }
-    """^^av:SparqlQuery ;
+    """ ;
     .
 
 _:aspectSpaceMission a av:Aspect ;
@@ -202,7 +202,7 @@ _:aspectSpaceMission a av:Aspect ;
             #OPTIONAL { ?spaceMission ^foaf:primaryTopic|foaf:isPrimaryTopicOf ?wikipediaUrl . } # UNION is much faster
             OPTIONAL { { ?spaceMission ^foaf:primaryTopic ?wikipediaUrl . } UNION { ?spaceMission foaf:isPrimaryTopicOf ?wikipediaUrl . } }
         }
-    """^^av:SparqlQuery ;
+    """ ;
     .
 []  a av:AspectPattern ;
     av:ofAspect _:aspectSpaceMission ;
@@ -242,7 +242,7 @@ _:aspectSpaceMission a av:Aspect ;
             OPTIONAL { { ?spaceMission rdfs:label ?label } UNION { ?spaceMission skos:altLabel ?label } }
             OPTIONAL { ?spaceMission ^schema:about ?wikipediaUrl }
         }
-    """^^av:SparqlQuery ;
+    """ ;
     .
 
 _:dbpediaSource a av:Step ;
@@ -278,7 +278,7 @@ _:dbpediaSource a av:Step ;
                 UNION
                 { ?item a dbo:ArtificialSatellite }
             }
-        """^^av:SparqlQuery ] ,
+        """ ] ,
         [av:key "followUnlimited" ; av:value
             rdfs:subClassOf ] ,
         [av:key "followInverse" ; av:value
@@ -308,7 +308,7 @@ _:wikidataSource a av:Step ;
                 UNION
                 {?item wdt:P31/wdt:P279* wd:Q40218 . } # spacecraft
             }
-        """^^av:SparqlQuery ] ,
+        """ ] ,
         [av:key "chunkSize" ; av:value 100 ] ,
         [av:key "followUnlimited" ; av:value
             #p:P19, ps:P19,
@@ -348,7 +348,7 @@ _:wikidataWikipediaUrlScheme a av:Step ;
             ?urlHttps <http://schema.org/about>  ?item .
             BIND(IRI(REPLACE(STR(?urlHttps), "^https", "http")) AS ?urlHttp)
             }
-        """^^av:SparqlQuery ] ;
+        """ ] ;
     .
 
 # Astronauts
