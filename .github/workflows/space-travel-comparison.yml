@@ -1,10 +1,10 @@
 name: Space Travel Comparison
-on: [push, pull_request, workflow_dispatch]
+on: workflow_dispatch
 
 jobs:
   compare:
     runs-on: ubuntu-latest
-    container: ghcr.io/fusion-jena/abecto:latest
+    container: ghcr.io/fusion-jena/abecto:v1.0.0
     steps:
       - name: Checkout Project
         uses: actions/checkout@v2
