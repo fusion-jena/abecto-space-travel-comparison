@@ -13,7 +13,7 @@ To running the project on your machine, please take the following steps:
 1. clone and build ABECTO
 
 	```
-	git clone --depth 1 -b v1.0.0 git@github.com:fusion-jena/abecto.git
+	git clone --depth 1 -b v1.0.1 git@github.com:fusion-jena/abecto.git
 	mvn -f abecto -B -Dmaven.test.skip=true package
 	```
 
