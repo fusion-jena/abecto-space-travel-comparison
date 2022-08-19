@@ -46,3 +46,11 @@ To running the project on your machine, please take the following steps:
 	  -F "external_source=DBpedia" \
 	  -F "external_source_url=http://dbpedia.org/"
 	```
+
+## Licenses
+
+* This comparison project is licensed under a [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+* [ABECTO](https://github.com/fusion-jena/abecto) is licensed under a [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+* The generated result data are derived from the compared knowledge graphs, which are licensed as follows:
+	* [DBpedia](https://www.dbpedia.org) by DBpedia Association ([CC BY-SA 3.0](http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License))
+	* [Wikidata](https://wikidata.org) ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/))
