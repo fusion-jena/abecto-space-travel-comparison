@@ -4,7 +4,7 @@ This is a project to compare space travel data from [Wikidata](https://www.wikid
 
 ## Execution on GitHub Actions
 
-There is a GitHub Actions Workflow configured in [.github/workflows/space-travel-comparison.yml](.github/workflows/space-travel-comparison.yml) that can be manually started on [Actions > Space Travel Comparison](https://github.com/jmkeil/abecto-space-travel-comparison/actions/workflows/space-travel-comparison.yml) by users with sufficient privileges. (You might fork this repository, to try it.) If a token was provided, the results will get uploaded to the Wikidata Mismatch Finder.
+There is a GitHub Actions Workflow configured in [.github/workflows/space-travel-comparison.yml](.github/workflows/space-travel-comparison.yml) that can be manually started on [Actions > Space Travel Comparison](https://github.com/fusion-jena/abecto-space-travel-comparison/actions/workflows/space-travel-comparison.yml) by users with sufficient privileges. (You might fork this repository, to try it.) If a token was provided, the results will get uploaded to the Wikidata Mismatch Finder.
 
 ## Execution on Your Machine
 
@@ -20,7 +20,7 @@ To running the project on your machine, please take the following steps:
 2. clone this project
 
 	```
-	git clone git@github.com:jmkeil/abecto-space-travel-comparison.git
+	git clone git@github.com:fusion-jena/abecto-space-travel-comparison.git
 	```
 
 3. execute the comparison pipeline defined in [space-travel-comparison.trig](space-travel-comparison.trig)
@@ -42,7 +42,7 @@ To running the project on your machine, please take the following steps:
 	  -H "Accept: application/json" \
 	  -H "Authorization: Bearer <TOKEN>" \
 	  -F "mismatch_file=@abecto-space-travel-comparison/space-travel-comparison-wdMismatchFinder.csv " \
-	  -F "description=Mismatches found by a comparison of space travel data from Wikidata and DBpedia using ABECTO. See: https://github.com/jmkeil/abecto-space-travel-comparison" \
+	  -F "description=Mismatches found by a comparison of space travel data from Wikidata and DBpedia using ABECTO. See: https://github.com/fusion-jena/abecto-space-travel-comparison" \
 	  -F "external_source=DBpedia" \
 	  -F "external_source_url=http://dbpedia.org/"
 	```
