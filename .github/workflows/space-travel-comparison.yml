@@ -4,6 +4,8 @@ on:
     inputs:
       token:
         description: 'Wikidata Mismatch Finder Access Token.'
+  schedule:
+    - cron: '0 0 10 * *'
 
 jobs:
   compare:
@@ -17,12 +19,12 @@ jobs:
       - name: Generate Wikidata Mismatch Finder report
         run: abecto --loadOnly --export wdMismatchFinder=space-travel-comparison-wdMismatchFinder.csv space-travel-comparison-result.trig
       - name: Upload Wikidata Mismatch Finder report
-        if: ${{ github.event.inputs.token != null }}
+        if: ${{ github.event.inputs.token != null || github.event.schedule != null }}
         run: |
           apt update && apt install -y curl
           curl -X POST "https://mismatch-finder.toolforge.org/api/imports" \
             -H "Accept: application/json" \
-            -H "Authorization: Bearer ${{ github.event.inputs.token }}" \
+            -H "Authorization: Bearer ${{ github.event.inputs.token || secrets.MISMATCH_FINDER_TOKEN }}" \
             -F "mismatch_file=@space-travel-comparison-wdMismatchFinder.csv" \
             -F "description=Mismatches found by a comparison of space travel data from Wikidata and DBpedia using ABECTO. See: https://github.com/fusion-jena/abecto-space-travel-comparison" \
             -F "external_source=DBpedia" \
