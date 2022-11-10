@@ -333,7 +333,7 @@ _:wikidataSource a av:Step ;
     .
 
 _:wikidataWikipediaUrlScheme a av:Step ;
-    rdfs:label "Wikidata Wiki Link HTTPS -> HTTP"@en;
+    rdfs:label "Wikidata Wikipedia URLs HTTPS -> HTTP"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:SparqlConstructProcessor ;
     p-plan:isPrecededBy _:wikidataSource ;
@@ -448,7 +448,7 @@ _:spacecraftLanguageLiteralsComparison a av:Step ;
 # SpaceMissions
 
 _:spaceMissionWikipediaUrlMapping a av:Step ;
-    rdfs:label "Mapping SpaceMissions by Wikipedia URL"@en;
+    rdfs:label "Mapping Space Missions by Wikipedia URL"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:EquivalentValueMappingProcessor ;
     p-plan:isPrecededBy _:dbpediaSource, _:wikidataWikipediaUrlScheme ;
@@ -458,7 +458,7 @@ _:spaceMissionWikipediaUrlMapping a av:Step ;
     .
 
 _:spaceMissionCompleteness a av:Step;
-    rdfs:label "Assess SpaceMission Completeness"@en;
+    rdfs:label "Assess Space Mission Completeness"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:CompletenessProcessor ;
     p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping ;
@@ -467,7 +467,7 @@ _:spaceMissionCompleteness a av:Step;
     .
 
 _:spaceMissionLiteralsComparison a av:Step ;
-    rdfs:label "Compare SpaceMission Literal Values"@en;
+    rdfs:label "Compare Space Mission Literal Values"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:LiteralValueComparisonProcessor ;
     p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping ;
@@ -478,7 +478,7 @@ _:spaceMissionLiteralsComparison a av:Step ;
     .
 
 _:spaceMissionLanguageLiteralsComparison a av:Step ;
-    rdfs:label "Compare SpaceMission English Literal Values"@en;
+    rdfs:label "Compare Space Mission English Literal Values"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:LiteralValueComparisonProcessor ;
     p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping ;
@@ -489,7 +489,7 @@ _:spaceMissionLanguageLiteralsComparison a av:Step ;
     .
 
 _:spaceMissionResourcesComparison a av:Step ;
-    rdfs:label "Compare SpaceMission Resource Values"@en;
+    rdfs:label "Compare Space Mission Resource Values"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:ResourceValueComparisonProcessor ;
     p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping, _:spacecraftWikipediaUrlMapping, _:astronautWikipediaUrlMapping ;
