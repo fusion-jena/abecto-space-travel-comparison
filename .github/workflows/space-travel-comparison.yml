@@ -13,7 +13,7 @@ jobs:
     container: ghcr.io/fusion-jena/abecto:v1.0.1
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Run ABECTO Space Travel Comparison
         run: abecto --trig space-travel-comparison-result.trig space-travel-comparison.trig
       - name: Generate Wikidata Mismatch Finder report
@@ -31,7 +31,7 @@ jobs:
             -F "external_source_url=http://dbpedia.org/" \
             -F "expires=$(date -d "1 month" +"%Y-%m-10")"
       - name: Archive Wikidata Mismatch Finder report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Wikidata Mismatch Finder report
           path: space-travel-comparison-wdMismatchFinder.csv
