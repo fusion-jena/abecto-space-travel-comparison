@@ -29,7 +29,7 @@ jobs:
             -F "description=Mismatches found by a comparison of space travel data from Wikidata and DBpedia using ABECTO. See: https://github.com/fusion-jena/abecto-space-travel-comparison" \
             -F "external_source=DBpedia" \
             -F "external_source_url=http://dbpedia.org/" \
-            -F "expires=$(date -d "1 month" +"%Y-%m-10")"
+            -F "expires=$(date -d "-9 days 1 month" +"%Y-%m-10")"
       - name: Archive Wikidata Mismatch Finder report
         uses: actions/upload-artifact@v3
         with:
