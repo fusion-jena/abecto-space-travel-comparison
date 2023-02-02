@@ -1,22 +1,22 @@
+@prefix abecto: <java:de.uni_jena.cs.fusion.abecto.processor.> .
 @prefix av: <http://w3id.org/abecto/vocabulary#> .
 @prefix dct: <http://purl.org/dc/terms/> .
-@prefix p-plan: <http://purl.org/net/p-plan#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix abecto: <java:de.uni_jena.cs.fusion.abecto.processor.> .
 @prefix om: <http://www.ontology-of-units-of-measure.org/resource/om-2/> .
+@prefix p-plan: <http://purl.org/net/p-plan#> .
+@prefix p: <http://www.wikidata.org/prop/> .
+@prefix pq: <http://www.wikidata.org/prop/qualifier/> .
+@prefix ps: <http://www.wikidata.org/prop/statement/> .
+@prefix psv: <http://www.wikidata.org/prop/statement/value/> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix qudtUnit: <http://qudt.org/vocab/unit/> .
-@prefix sweetUnit: <http://sweetontology.net/reprSciUnits/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix p: <http://www.wikidata.org/prop/> .
-@prefix ps: <http://www.wikidata.org/prop/statement/> .
-@prefix pq: <http://www.wikidata.org/prop/qualifier/> .
-#@prefix psv: <http://www.wikidata.org/prop/statement/value/> .
+@prefix sweetUnit: <http://sweetontology.net/reprSciUnits/> .
 @prefix vaem: <http://www.linkedmodel.org/schema/vaem#> .
 @prefix wdt: <http://www.wikidata.org/prop/direct/> .
 @prefix wikibase: <http://wikiba.se/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 _:plan a av:Plan ;
     rdfs:label "Space Travel Comparison"@en;
@@ -317,13 +317,14 @@ _:wikidataSource a av:Step ;
             #p:P375, ps:P375,
             p:P377, ps:P377,
             #p:P450, ps:P450,
-            p:P569, ps:P569,
-            p:P570, ps:P570,
-            p:P619, ps:P619,
+            p:P569, ps:P569, #psv:P569,
+            p:P570, ps:P570, #psv:P570,
+            p:P619, ps:P619, #psv:P619,
+            p:P620, ps:P620, #psv:P620,
             #p:P793, ps:P793, pq:P585, pq:P276,
             #p:P1427, ps:P1427,
             #p:P2047, ps:P2047,
-            p:P2873, ps:P2873,
+            p:P2873, ps:P2873, #psv:P2873,
             #p:P5096, ps:P5096,
             wdt:P279
         ] ,
@@ -364,7 +365,7 @@ _:astronautWikipediaUrlMapping a av:Step ;
 _:astronautCompleteness a av:Step;
     rdfs:label "Assess Astronaut Completeness"@en;
     p-plan:isStepOfPlan _:plan ;
-    av:processorClass abecto:CompletenessProcessor ;
+    av:processorClass abecto:PopulationComparisonProcessor ;
     p-plan:isPrecededBy _:astronautWikipediaUrlMapping ;
     av:hasParameter
         [av:key "aspects" ; av:value _:aspectAstronaut ] ;
@@ -407,7 +408,7 @@ _:spacecraftWikipediaUrlMapping a av:Step ;
 _:spacecraftCompleteness a av:Step;
     rdfs:label "Assess Spacecraft Completeness"@en;
     p-plan:isStepOfPlan _:plan ;
-    av:processorClass abecto:CompletenessProcessor ;
+    av:processorClass abecto:PopulationComparisonProcessor ;
     p-plan:isPrecededBy _:spacecraftWikipediaUrlMapping ;
     av:hasParameter
         [av:key "aspects" ; av:value _:aspectSpacecraft ] ;
@@ -460,7 +461,7 @@ _:spaceMissionWikipediaUrlMapping a av:Step ;
 _:spaceMissionCompleteness a av:Step;
     rdfs:label "Assess Space Mission Completeness"@en;
     p-plan:isStepOfPlan _:plan ;
-    av:processorClass abecto:CompletenessProcessor ;
+    av:processorClass abecto:PopulationComparisonProcessor ;
     p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping ;
     av:hasParameter
         [av:key "aspects" ; av:value _:aspectSpaceMission ] ;
