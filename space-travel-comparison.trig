@@ -362,8 +362,8 @@ _:astronautWikipediaUrlMapping a av:Step ;
         [av:key "variables" ; av:value "wikipediaUrl" ] ;
     .
 
-_:astronautCompleteness a av:Step;
-    rdfs:label "Assess Astronaut Completeness"@en;
+_:astronautPopulationComparison a av:Step;
+    rdfs:label "Astronaut Population Comparison"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:PopulationComparisonProcessor ;
     p-plan:isPrecededBy _:astronautWikipediaUrlMapping ;
@@ -371,25 +371,15 @@ _:astronautCompleteness a av:Step;
         [av:key "aspects" ; av:value _:aspectAstronaut ] ;
     .
 
-_:astronautLiteralsDataComparison a av:Step ;
-    rdfs:label "Compare Astronaut Literal Values"@en;
+_:astronautPropertyComparison a av:Step ;
+    rdfs:label "Astronaut Property Comparison"@en;
     p-plan:isStepOfPlan _:plan ;
-    av:processorClass abecto:LiteralValueComparisonProcessor ;
+    av:processorClass abecto:PropertyComparisonProcessor ;
     p-plan:isPrecededBy _:astronautWikipediaUrlMapping ;
     av:hasParameter
         [av:key "aspect" ; av:value _:aspectAstronaut ] ,
         [av:key "allowTimeSkip" ; av:value true ] ,
-        [av:key "variables" ; av:value "timeInSpace", "birthDate", "deathDate" ] ;
-    .
-
-_:astronautLanguageLiteralsComparison a av:Step ;
-    rdfs:label "Compare Astronaut English Literal Values"@en;
-    p-plan:isStepOfPlan _:plan ;
-    av:processorClass abecto:LiteralValueComparisonProcessor ;
-    p-plan:isPrecededBy _:astronautWikipediaUrlMapping ;
-    av:hasParameter
-        [av:key "aspect" ; av:value _:aspectAstronaut ] ,
-        [av:key "variables" ; av:value "label" ] ,
+        [av:key "variables" ; av:value "timeInSpace", "birthDate", "deathDate", "label" ] ,
         [av:key "languageFilterPatterns" ; av:value "en"] ;
     .
 
@@ -405,8 +395,8 @@ _:spacecraftWikipediaUrlMapping a av:Step ;
         [av:key "variables" ; av:value "wikipediaUrl" ] ;
     .
 
-_:spacecraftCompleteness a av:Step;
-    rdfs:label "Assess Spacecraft Completeness"@en;
+_:spacecraftPopulationComparison a av:Step;
+    rdfs:label "Spacecraft Population Comparison"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:PopulationComparisonProcessor ;
     p-plan:isPrecededBy _:spacecraftWikipediaUrlMapping ;
@@ -414,35 +404,15 @@ _:spacecraftCompleteness a av:Step;
         [av:key "aspects" ; av:value _:aspectSpacecraft ] ;
     .
 
-_:spacecraftLiteralsComparison a av:Step ;
-    rdfs:label "Compare Spacecraft Literal Values"@en;
+_:spacecraftPropertyComparison a av:Step ;
+    rdfs:label "Spacecraft Property Comparison"@en;
     p-plan:isStepOfPlan _:plan ;
-    av:processorClass abecto:LiteralValueComparisonProcessor ;
+    av:processorClass abecto:PropertyComparisonProcessor ;
     p-plan:isPrecededBy _:spacecraftWikipediaUrlMapping, _:astronautWikipediaUrlMapping ;
     av:hasParameter
         [av:key "aspect" ; av:value _:aspectSpacecraft ] ,
         [av:key "allowTimeSkip" ; av:value true ] ,
-        [av:key "variables" ; av:value "launchDate", "landingDate", "satelliteCatalogueNumber", "cosparId" ] ;
-    .
-
-_:spaceMissionResourcesComparison a av:Step ;
-    rdfs:label "Compare Spacecrafts Resource Values"@en;
-    p-plan:isStepOfPlan _:plan ;
-    av:processorClass abecto:ResourceValueComparisonProcessor ;
-    p-plan:isPrecededBy _:spacecraftWikipediaUrlMapping ;
-    av:hasParameter
-        [av:key "aspect" ; av:value _:aspectSpacecraft ] ,
-        [av:key "variables" ; av:value "crewMember" ] ;
-    .
-
-_:spacecraftLanguageLiteralsComparison a av:Step ;
-    rdfs:label "Compare Spacecraft English Literal Values"@en;
-    p-plan:isStepOfPlan _:plan ;
-    av:processorClass abecto:LiteralValueComparisonProcessor ;
-    p-plan:isPrecededBy _:spacecraftWikipediaUrlMapping ;
-    av:hasParameter
-        [av:key "aspect" ; av:value _:aspectSpacecraft ] ,
-        [av:key "variables" ; av:value "label" ] ,
+        [av:key "variables" ; av:value "launchDate", "landingDate", "satelliteCatalogueNumber", "cosparId", "crewMember", "label" ] ,
         [av:key "languageFilterPatterns" ; av:value "en"] ;
     .
 
@@ -458,8 +428,8 @@ _:spaceMissionWikipediaUrlMapping a av:Step ;
         [av:key "variables" ; av:value "wikipediaUrl" ] ;
     .
 
-_:spaceMissionCompleteness a av:Step;
-    rdfs:label "Assess Space Mission Completeness"@en;
+_:spaceMissionPopulationComparison a av:Step;
+    rdfs:label "Space Mission Population Comparison"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:PopulationComparisonProcessor ;
     p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping ;
@@ -467,34 +437,14 @@ _:spaceMissionCompleteness a av:Step;
         [av:key "aspects" ; av:value _:aspectSpaceMission ] ;
     .
 
-_:spaceMissionLiteralsComparison a av:Step ;
-    rdfs:label "Compare Space Mission Literal Values"@en;
+_:spaceMissionPropertyComparison a av:Step ;
+    rdfs:label "Space Mission Property Comparison"@en;
     p-plan:isStepOfPlan _:plan ;
-    av:processorClass abecto:LiteralValueComparisonProcessor ;
-    p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping ;
-    av:hasParameter
-        [av:key "aspect" ; av:value _:aspectSpaceMission ] ,
-        [av:key "allowTimeSkip" ; av:value true ] ,
-        [av:key "variables" ; av:value "launchDate", "landingDate", "mass", "duration", "inclination", "numberOfOrbits" ] ;
-    .
-
-_:spaceMissionLanguageLiteralsComparison a av:Step ;
-    rdfs:label "Compare Space Mission English Literal Values"@en;
-    p-plan:isStepOfPlan _:plan ;
-    av:processorClass abecto:LiteralValueComparisonProcessor ;
-    p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping ;
-    av:hasParameter
-        [av:key "aspect" ; av:value _:aspectSpaceMission ] ,
-        [av:key "variables" ; av:value "label" ] ,
-        [av:key "languageFilterPatterns" ; av:value "en"] ;
-    .
-
-_:spaceMissionResourcesComparison a av:Step ;
-    rdfs:label "Compare Space Mission Resource Values"@en;
-    p-plan:isStepOfPlan _:plan ;
-    av:processorClass abecto:ResourceValueComparisonProcessor ;
+    av:processorClass abecto:PropertyComparisonProcessor ;
     p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping, _:spacecraftWikipediaUrlMapping, _:astronautWikipediaUrlMapping ;
     av:hasParameter
         [av:key "aspect" ; av:value _:aspectSpaceMission ] ,
-        [av:key "variables" ; av:value "launchSite", "crewMember", "launchVehicle", "vehicle", "landingSite", "nextMission", "previousMission" ] ;
+        [av:key "allowTimeSkip" ; av:value true ] ,
+        [av:key "variables" ; av:value "label", "launchDate", "landingDate", "mass", "duration", "inclination", "numberOfOrbits", "launchSite", "crewMember", "launchVehicle", "vehicle", "landingSite", "nextMission", "previousMission" ] ,
+        [av:key "languageFilterPatterns" ; av:value "en"]  ;
     .

@@ -10,7 +10,7 @@ on:
 jobs:
   compare:
     runs-on: ubuntu-latest
-    container: ghcr.io/fusion-jena/abecto:v1.1.0
+    container: ghcr.io/fusion-jena/abecto:v2.0.0
     steps:
       - name: Checkout Project
         uses: actions/checkout@v3
