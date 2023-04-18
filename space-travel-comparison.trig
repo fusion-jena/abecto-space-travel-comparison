@@ -217,7 +217,7 @@ _:aspectSpaceMission a av:Aspect ;
 
         SELECT *
         WHERE {
-            ?spaceMission wdt:P31/wdt:P279* wd:Q2133344 .
+            {{ ?spaceMission wdt:P31/wdt:P279* wd:Q2133344 . } UNION { ?spaceMission wdt:P31/wdt:P279* wd:Q5916. }}
             OPTIONAL { ?spaceMission wdt:P1029 ?crewMember }
             OPTIONAL { { ?spaceMission wdt:P619 ?launchDate } UNION { ?spaceMission p:P793 [ ps:P793 wd:Q797476 ; pq:P585 ?launchDate ] } }
             OPTIONAL { { ?spaceMission wdt:P1427 ?launchSite } UNION { ?spaceMission p:P793 [ ps:P793 wd:Q797476 ; pq:P276 ?launchSite ] } }
@@ -302,7 +302,12 @@ _:wikidataSource a av:Step ;
                 }
                 UNION
                 { ?item wdt:P31/wdt:P279* wd:Q5916. } # spaceFlight
-                #{ ?item wdt:P31/wdt:P279* wd:Q2133344 . } # spaceMission
+                UNION
+                { ?item wdt:P31/wdt:P279* wd:Q2133344 . } # spaceMission
+				UNION
+				{ ?item wdt:P279* wd:Q2133344 . } # spaceFlight subclasses
+				UNION
+				{ ?item wdt:P279* wd:Q5916. } # spaceMission subclasses
                 UNION
                 {?item wdt:P31/wdt:P279* wd:Q40218 . } # spacecraft
             }
