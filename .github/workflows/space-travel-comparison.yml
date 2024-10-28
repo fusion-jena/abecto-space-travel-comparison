@@ -10,14 +10,23 @@ on:
 jobs:
   compare:
     runs-on: ubuntu-latest
-    container: ghcr.io/fusion-jena/abecto:v2.0.0
+    container: ghcr.io/fusion-jena/abecto:v3.0.0
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v3
-      - name: Run ABECTO Space Travel Comparison
-        run: abecto --trig space-travel-comparison-result.trig space-travel-comparison.trig
-      - name: Generate Wikidata Mismatch Finder report
-        run: abecto --loadOnly --export wdMismatchFinder=space-travel-comparison-wdMismatchFinder.csv space-travel-comparison-result.trig
+        uses: actions/checkout@v4
+      - name: Run ABECTO Space Travel Comparison and Store Results
+        run: |
+          abecto \
+            --trig space-travel-comparison-result.trig \
+            --export deviations=space-travel-comparison-deviations.csv \
+            --export wdMismatchFinder=space-travel-comparison-wdMismatchFinder.csv \
+            --export measurementsMarkdown=space-travel-comparison-measurements.md \
+            space-travel-comparison.trig
+      - name: Archive Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: Space Travel Comparison Results
+          path: space-travel-comparison-*
       - name: Upload Wikidata Mismatch Finder report
         if: ${{ github.event.inputs.token != null || github.event.schedule != null }}
         run: |
@@ -30,8 +39,3 @@ jobs:
             -F "external_source=DBpedia" \
             -F "external_source_url=http://dbpedia.org/" \
             -F "expires=$(date -d "-9 days 1 month" +"%Y-%m-10")"
-      - name: Archive Wikidata Mismatch Finder report
-        uses: actions/upload-artifact@v3
-        with:
-          name: Wikidata Mismatch Finder report
-          path: space-travel-comparison-wdMismatchFinder.csv
