@@ -406,7 +406,7 @@ _:astronautPropertyComparison a av:Step ;
     rdfs:label "Astronaut Property Comparison"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:PropertyComparisonProcessor ;
-    p-plan:isPrecededBy _:astronautWikipediaUrlMapping ;
+    p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping, _:spacecraftWikipediaUrlMapping, _:astronautWikipediaUrlMapping ;
     av:hasParameter
         [av:key "aspect" ; av:value _:aspectAstronaut ] ,
         [av:key "allowTimeSkip" ; av:value true ] ,
@@ -439,7 +439,7 @@ _:spacecraftPropertyComparison a av:Step ;
     rdfs:label "Spacecraft Property Comparison"@en;
     p-plan:isStepOfPlan _:plan ;
     av:processorClass abecto:PropertyComparisonProcessor ;
-    p-plan:isPrecededBy _:spacecraftWikipediaUrlMapping, _:astronautWikipediaUrlMapping ;
+    p-plan:isPrecededBy _:spaceMissionWikipediaUrlMapping, _:spacecraftWikipediaUrlMapping, _:astronautWikipediaUrlMapping ;
     av:hasParameter
         [av:key "aspect" ; av:value _:aspectSpacecraft ] ,
         [av:key "allowTimeSkip" ; av:value true ] ,
