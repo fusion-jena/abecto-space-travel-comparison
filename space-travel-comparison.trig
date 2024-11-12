@@ -163,6 +163,18 @@ _:aspectSpacecraft a av:Aspect ;
             OPTIONAL { ?spacecraft ^schema:about ?wikipediaUrl }
         }
     """ ;
+	av:hasVariablePath [
+		rdf:type av:VariablePath;
+		av:propertyPath  "<http://www.wikidata.org/prop/direct/P619>";
+        av:propertyPath  "<http://www.wikidata.org/prop/P793>/<http://www.wikidata.org/prop/qualifier/P585>";
+        av:variableName  "launchDate"
+        ];
+	av:hasVariablePath [
+		rdf:type av:VariablePath;
+		av:propertyPath  "<http://www.wikidata.org/prop/direct/P1427>";
+        av:propertyPath  "<http://www.wikidata.org/prop/P793>/<http://www.wikidata.org/prop/qualifier/P276>";
+        av:variableName  "launchSite"
+        ];
     .
 
 _:aspectSpaceMission a av:Aspect ;
@@ -241,6 +253,18 @@ _:aspectSpaceMission a av:Aspect ;
             OPTIONAL { ?spaceMission ^schema:about ?wikipediaUrl }
         }
     """ ;
+	av:hasVariablePath [
+		rdf:type av:VariablePath;
+		av:propertyPath  "<http://www.wikidata.org/prop/direct/P619>";
+        av:propertyPath  "<http://www.wikidata.org/prop/P793>/<http://www.wikidata.org/prop/qualifier/P585>";
+        av:variableName  "launchDate"
+        ];
+	av:hasVariablePath [
+		rdf:type av:VariablePath;
+		av:propertyPath  "<http://www.wikidata.org/prop/direct/P1427>";
+        av:propertyPath  "<http://www.wikidata.org/prop/P793>/<http://www.wikidata.org/prop/qualifier/P276>";
+        av:variableName  "launchSite"
+        ];
     .
 
 _:dbpediaSource a av:Step ;
