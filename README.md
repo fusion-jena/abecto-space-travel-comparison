@@ -10,29 +10,28 @@ There is a GitHub Actions Workflow configured in [.github/workflows/space-travel
 
 To running the project on your machine, please take the following steps:
 
-1. clone and build ABECTO
+1. download ABECTO
 
 	```
-	git clone --depth 1 -b v1.0.1 git@github.com:fusion-jena/abecto.git
-	mvn -f abecto -B -Dmaven.test.skip=true package
+	curl -L -O https://github.com/fusion-jena/abecto/releases/download/v3.1.1/abecto.jar
 	```
 
 2. clone this project
 
 	```
-	git clone git@github.com:fusion-jena/abecto-space-travel-comparison.git
+	git clone --depth=1 git@github.com:fusion-jena/abecto-space-travel-comparison.git
 	```
 
 3. execute the comparison pipeline defined in [space-travel-comparison.trig](space-travel-comparison.trig)
 
 	```
-	java -jar abecto/target/abecto.jar --trig abecto-space-travel-comparison/space-travel-comparison-result.trig abecto-space-travel-comparison/space-travel-comparison.trig
+	java -jar abecto.jar --trig abecto-space-travel-comparison/space-travel-comparison-result.trig abecto-space-travel-comparison/space-travel-comparison.trig
 	```
 
 4. create a Wikidata Mismatch Finder report
 
 	```
-	java -jar abecto/target/abecto.jar --loadOnly --export wdMismatchFinder=abecto-space-travel-comparison/space-travel-comparison-wdMismatchFinder.csv abecto-space-travel-comparison/space-travel-comparison-result.trig
+	java -jar abecto.jar --loadOnly --export wdMismatchFinder=abecto-space-travel-comparison/space-travel-comparison-wdMismatchFinder.csv abecto-space-travel-comparison/space-travel-comparison-result.trig
 	```
 
 5. upload the report (replace `<TOKEN>` with your [personal access token](https://github.com/wmde/wikidata-mismatch-finder/blob/main/docs/UserGuide.md#obtaining-an-api-access-token-))
