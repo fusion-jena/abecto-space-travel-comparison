@@ -38,9 +38,9 @@ _:aspectAstronaut a av:Aspect ;
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-        SELECT ?astronaut ?mission ?crewMemberOf ?timeInSpace ?country ?birthDate ?deathDate ?birthPlace ?deathPlace ?label ?wikipediaUrl
+        SELECT DISTINCT ?astronaut ?mission ?crewMemberOf ?timeInSpace ?country ?birthDate ?deathDate ?birthPlace ?deathPlace ?label ?wikipediaUrl
         WHERE {
-            ?astronaut a dbo:Astronaut
+            { ?astronaut a dbo:Astronaut } UNION { ?astronaut a <http://www.wikidata.org/entity/Q11631> } # wd class as hotfix for https://github.com/dbpedia/extraction-framework/issues/820
             OPTIONAL { ?astronaut dbo:mission ?mission }
             OPTIONAL { ?astronaut ^dbo:crewMember ?crewMemberOf }
             OPTIONAL {
@@ -102,17 +102,17 @@ _:aspectSpacecraft a av:Aspect ;
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-        SELECT  ?spacecraft ?missionDuration ?launchDate ?landingDate ?launchVehicle ?manufacturer ?satelliteCatalogueNumber ?cosparId ?crewMember ?launchSite ?label ?wikipediaUrl
+        SELECT DISTINCT ?spacecraft ?missionDuration ?launchDate ?landingDate ?launchVehicle ?manufacturer ?satelliteCatalogueNumber ?cosparId ?crewMember ?launchSite ?label ?wikipediaUrl
         WHERE {
-            { ?spacecraft a dbo:Rocket }
+            { ?spacecraft a dbo:Rocket } UNION { ?spacecraft a <http://www.wikidata.org/entity/Q41291> } # wd class as hotfix for https://github.com/dbpedia/extraction-framework/issues/820
             UNION
-            { ?spacecraft a dbo:SpaceShuttle }
+            { ?spacecraft a dbo:SpaceShuttle } UNION { ?spacecraft a <http://www.wikidata.org/entity/Q48806> } # wd class as hotfix for https://github.com/dbpedia/extraction-framework/issues/820
             UNION
-            { ?spacecraft a dbo:SpaceStation }
+            { ?spacecraft a dbo:SpaceStation } UNION { ?spacecraft a <http://www.wikidata.org/entity/Q25956> } # wd class as hotfix for https://github.com/dbpedia/extraction-framework/issues/820
             UNION
-            { ?spacecraft a dbo:Spacecraft }
+            { ?spacecraft a dbo:Spacecraft } UNION { ?spacecraft a <http://www.wikidata.org/entity/Q40218> } # wd class as hotfix for https://github.com/dbpedia/extraction-framework/issues/820
             UNION
-            { ?spacecraft a dbo:ArtificialSatellite }
+            { ?spacecraft a dbo:ArtificialSatellite } UNION { ?spacecraft a <http://www.wikidata.org/entity/> } # wd class as hotfix for https://github.com/dbpedia/extraction-framework/issues/820
             OPTIONAL { { ?spacecraft dbo:SpaceMission\\/missionDuration ?missionDuration } UNION { ?spacecraft dbo:missionDuration ?missionDuration }}
             OPTIONAL { ?spacecraft dbo:launchDate ?launchDate }
             OPTIONAL { ?spacecraft dbo:landingDate ?landingDate }
@@ -195,9 +195,9 @@ _:aspectSpaceMission a av:Aspect ;
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-        SELECT *
+        SELECT DISTINCT *
         WHERE {
-            ?spaceMission a dbo:SpaceMission .
+            { ?spaceMission a dbo:SpaceMission }  UNION { ?spaceMission a <http://www.wikidata.org/entity/Q2133344> } # wd class as hotfix for https://github.com/dbpedia/extraction-framework/issues/820
             OPTIONAL { ?spaceMission dbo:crewMember ?crewMember }
             OPTIONAL { ?spaceMission dbo:launchDate ?launchDate }
             OPTIONAL { ?spaceMission dbo:launchSite ?launchSite }
